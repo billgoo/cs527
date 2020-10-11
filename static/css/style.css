@@ -1,0 +1,32 @@
+.choiceButtonRow {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.choiceButton {
+    border: 1px solid black;
+}
+
+.inputForm {
+    padding-bottom: 20px;
+}
+
+.inputBox {
+    width: calc(100% - 20px);
+    min-height:200px;
+    font-size: 20px;
+}
+
+.runningTimeBox {
+    padding-bottom: 5px;
+}
+
+.runningTimeRes {
+    font-weight: bold;
+}
+
+.resultBox {
+    width: 100%;
+    min-height: 200px;
+}
