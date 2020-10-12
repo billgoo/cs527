@@ -1,3 +1,10 @@
+.title {
+    font-size: x-large;
+    font-weight: bold;
+    width: calc(100% - 20px);
+
+}
+
 .choiceButtonRow {
     display: flex;
     justify-content: space-around;
@@ -6,6 +13,10 @@
 
 .choiceButton {
     border: 1px solid black;
+}
+
+.buttonChosen {
+    background: aquamarine;
 }
 
 .inputForm {
