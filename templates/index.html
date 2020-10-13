@@ -26,10 +26,10 @@
                 <td>col</td>
                 {% endfor %}
             </tr>
-            {%  for i in range(len(res)) %}
+            {%  for row in res %}
             <tr>
-                {% for data in res[i] %}
-                    <tr>data</tr>
+                {% for elem in row %}
+                    <tr>elem</tr>
                 {% endfor %}
             </tr>
             {% endfor %}

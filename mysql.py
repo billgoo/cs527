@@ -3,7 +3,7 @@ from time import time
 import re
 
 def buildQueryFromInput(raw_query):
-    return re.sub('\W+', ' ', raw_query)
+    return re.sub('\s+', ' ', raw_query)
 
 class connect_mysql():
     def __init__(self, host, user, password, db):

@@ -18,9 +18,10 @@ def queryMysql():
     connection = connect_mysql(host='cs527project1group5.cnpt9dsbfddc.us-east-1.rds.amazonaws.com',
                                user='admin',
                                password='cs527project1',
-                               db='')
+                               db='instacart')
 
-    col_name, res, query_time = connection.run_query(q)
+    col_name, res, query_time = connection.make_query(q)
+    connection.disconnect()
     return render_template('index.html',
                            col_name=col_name,
                            res=res,
