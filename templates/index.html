@@ -7,24 +7,35 @@
 </head>
 
 <body>
+    <div class="title">CS527 Project</div>
     <div class="choiceButtonRow">
-        <button class="choiceButton" id="" type="button">MySQL</button>
-        <button class="choiceButton" id="" type="button">RedShift</button>
+        <button class="choiceButton {% if url=='/mysql' %}buttonChosen{% endif %}" id="mysql" type="button" onclick="handleMysqlButtonClick()">MySQL</button>
+        <button class="choiceButton {% if url=='/redshift' %}buttonChosen{% endif %}" id="redshift" type="button" onclick="handleRedshiftButtonClick()">RedShift</button>
     </div>
-        <form class="inputForm" action="" method="post" id="">
-            <input class="inputBox" type="text" name="query" value="" placeholder="Input your query here" row="10" />
-            <input class="" id="" type="submit" value="Run" />
+        <form class="inputForm" action="mysql" method="post" id="inputForm">
+            <textarea class="inputBox" name="query" placeholder="Input your query here" rows="10">{{ query }}</textarea>
+            <input class="" id="" type="submit" value="Run" onclick="querySubmit()"/>
         </form>
     <div class="runningTimeBox">
-        <span class="runningTimeBox runningTimeRes" id="">{{ 'excuted time here' }} </span> Time Elapsed
+        <span class="runningTimeBox runningTimeRes" id="">{{ query_time }} </span> Time Elapsed
     </div>
     <div>
         <table class="resultBox" id="" border="">
             <tr>
-                <td>example</td>
+                {% for col in col_name %}
+                <td>{{ col }}</td>
+                {% endfor %}
             </tr>
+            {%  for row in res %}
+            <tr>
+                {% for elem in row %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </body>
 
+<script src="/static/js/basic.js" type="text/javascript"></script>
 </html>
