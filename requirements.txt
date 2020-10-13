@@ -1,3 +1,4 @@
 boto3==1.15.15
 flask==1.1.2
+loguru==0.5.3
 mysql-connector-python==8.0.18
