@@ -16,44 +16,44 @@ from DBManager.database_manager import DatabaseManager
 
 # sql dict for all sql query
 SQL_DICT = OrderedDict({
-    "aisles.csv": {
-        "DROP": ("DROP TABLE IF EXISTS aisles"),
-        "CREATE": ("""CREATE TABLE aisles (
-            aisle_id INT NOT NULL, aisle VARCHAR(256) NOT NULL,
-            PRIMARY KEY (aisle_id))"""),
-        "INSERT": ("""INSERT INTO aisles ( aisle_id, aisle )
-            VALUES ( %s, %s )""")
-    },
-    "departments.csv": {
-        "DROP": ("DROP TABLE IF EXISTS departments"),
-        "CREATE": (
-            """CREATE TABLE departments (
-            department_id INT NOT NULL,
-            department VARCHAR (256) NOT NULL,
-            PRIMARY KEY (department_id))"""
-        ),
-        "INSERT": ("""INSERT INTO departments ( department_id, department )
-            VALUES ( %s, %s )""")
-    },
-    "orders.csv": {
-        "DROP": ("DROP TABLE IF EXISTS orders"),
-        "CREATE": (
-            """CREATE TABLE orders (
-            order_id INT NOT NULL,
-            user_id INT NOT NULL,
-            order_number INT NOT NULL,
-            order_dow INT NOT NULL,
-            order_hour_of_day INT NOT NULL,
-            days_since_prior_order INT NOT NULL,
-            PRIMARY KEY (order_id))"""
-        ),
-        "INSERT": ("""INSERT INTO orders (
-                order_id, user_id, order_number, order_dow,
-                order_hour_of_day, days_since_prior_order
-            )
-            VALUES ( %s, %s, %s, %s, %s, %s )"""
-        )
-    },
+    # "aisles.csv": {
+    #     "DROP": ("DROP TABLE IF EXISTS aisles"),
+    #     "CREATE": ("""CREATE TABLE aisles (
+    #         aisle_id INT NOT NULL, aisle VARCHAR(256) NOT NULL,
+    #         PRIMARY KEY (aisle_id))"""),
+    #     "INSERT": ("""INSERT INTO aisles ( aisle_id, aisle )
+    #         VALUES ( %s, %s )""")
+    # },
+    # "departments.csv": {
+    #     "DROP": ("DROP TABLE IF EXISTS departments"),
+    #     "CREATE": (
+    #         """CREATE TABLE departments (
+    #         department_id INT NOT NULL,
+    #         department VARCHAR (256) NOT NULL,
+    #         PRIMARY KEY (department_id))"""
+    #     ),
+    #     "INSERT": ("""INSERT INTO departments ( department_id, department )
+    #         VALUES ( %s, %s )""")
+    # },
+    # "orders.csv": {
+    #     "DROP": ("DROP TABLE IF EXISTS orders"),
+    #     "CREATE": (
+    #         """CREATE TABLE orders (
+    #         order_id INT NOT NULL,
+    #         user_id INT NOT NULL,
+    #         order_number INT NOT NULL,
+    #         order_dow INT NOT NULL,
+    #         order_hour_of_day INT NOT NULL,
+    #         days_since_prior_order INT NOT NULL,
+    #         PRIMARY KEY (order_id))"""
+    #     ),
+    #     "INSERT": ("""INSERT INTO orders (
+    #             order_id, user_id, order_number, order_dow,
+    #             order_hour_of_day, days_since_prior_order
+    #         )
+    #         VALUES ( %s, %s, %s, %s, %s, %s )"""
+    #     )
+    # },
     "products.csv": {
         "DROP": ("DROP TABLE IF EXISTS products"),
         "CREATE": (
@@ -99,9 +99,6 @@ bucket = s3.Bucket('instacartforcs527')
 # get all obj from s3
 obj_dict = {obj.key: obj for obj in bucket.objects.all()}
 
-# connect to RDS
-mydb = DatabaseManager()
-
 # read data from s3 obj and write data into rds
 for key, value in SQL_DICT.items():
     logger.info("key on s3: {}".format(key))
@@ -114,6 +111,8 @@ for key, value in SQL_DICT.items():
     logger.info("Read in total {0} lines of data from table {1}".format(
         len(lines) - 2, str(key).split(".")[0]))
 
+    # connect to RDS
+    mydb = DatabaseManager()
     # init table
     mydb.cursor.execute(value["DROP"])
     mydb.cursor.execute(value["CREATE"])
@@ -121,14 +120,16 @@ for key, value in SQL_DICT.items():
     # write data into rds
     logger.info("Start writing in total {0} lines of data into table {1}".format(
         str(len(lines) - 2), str(key).split(".")[0]))
-    for i in range(1, len(lines) - 1):
+    for i in range(len(lines) - 1):
         columns = tuple(lines[i].split(","))
         mydb.cursor.execute(value["INSERT"], columns)
-        mydb.conn.commit()
-        if i % 20 == 0:
+        # mydb.conn.commit()
+        if i % 2000 == 0:
             logger.info("Write {0} lines.".format(i))
+            mydb.conn.commit()
 
+    mydb.conn.commit()
     logger.info("Write successfully!")
 
-mydb.cursor.close()
-mydb.conn.close()
+    mydb.cursor.close()
+    mydb.conn.close()
