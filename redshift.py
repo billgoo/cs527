@@ -1,13 +1,9 @@
-import pymysql
+import psycopg2
 from time import time
-import re
 
-def buildQueryFromInput(raw_query):
-    return re.sub('\s+', ' ', raw_query)
-
-class connect_mysql():
-    def __init__(self, host, user, password, db, port):
-        self.db = pymysql.connect(host=host, user=user, password=password, db=db, port=port)
+class connect_redshift():
+    def __init__(self, host, dbname, user, password, port):
+        self.db = psycopg2.connect(host=host, dbname=dbname, port=port, user=user, password=password)
         self.cursor = self.db.cursor()
 
     def make_query(self, query):
@@ -24,4 +20,5 @@ class connect_mysql():
         return col_name, result, query_time
 
     def disconnect(self):
+        self.cursor.close()
         self.db.close()

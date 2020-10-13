@@ -9,8 +9,8 @@
 <body>
     <div class="title">CS527 Project</div>
     <div class="choiceButtonRow">
-        <button class="choiceButton buttonChosen" id="mysql" type="button" onclick="handleMysqlButtonClick()">MySQL</button>
-        <button class="choiceButton" id="redshift" type="button" onclick="handleRedshiftButtonClick()">RedShift</button>
+        <button class="choiceButton {% if url=='/mysql' %}buttonChosen{% endif %}" id="mysql" type="button" onclick="handleMysqlButtonClick()">MySQL</button>
+        <button class="choiceButton {% if url=='/redshift' %}buttonChosen{% endif %}" id="redshift" type="button" onclick="handleRedshiftButtonClick()">RedShift</button>
     </div>
         <form class="inputForm" action="mysql" method="post" id="inputForm">
             <textarea class="inputBox" name="query" placeholder="Input your query here" rows="10">{{ query }}</textarea>
@@ -23,20 +23,16 @@
         <table class="resultBox" id="" border="">
             <tr>
                 {% for col in col_name %}
-                <td>col</td>
+                <td>{{ col }}</td>
                 {% endfor %}
             </tr>
             {%  for row in res %}
             <tr>
                 {% for elem in row %}
-                    <tr>elem</tr>
+                    <td>{{ elem }}</td>
                 {% endfor %}
             </tr>
             {% endfor %}
-{#            <tr>#}
-{#                <td>example</td>#}
-{#                <td>example1</td>#}
-{#            </tr>#}
         </table>
     </div>
 </body>
