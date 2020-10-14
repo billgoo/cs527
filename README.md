@@ -98,7 +98,7 @@
         # load into RDS
         LOAD DATA LOCAL INFILE '~/order_products.csv' INTO TABLE order_products FIELDS TERMINATED BY ',' ENCLOSED BY '"' IGNORE 1 LINES;
         ```
-## 在 AWS 上，S3 数据桶上的数据导入 RedShift
+## 在 AWS 上，S3 数据桶上的数据导入 RedShift 数据仓库
 
 1. 新建一个免费的 `RedShift` CLUSTERS（依照 AWS 的文档配置就好）
 
