@@ -16,44 +16,44 @@ from DBManager.database_manager import DatabaseManager
 
 # sql dict for all sql query
 SQL_DICT = OrderedDict({
-    # "aisles.csv": {
-    #     "DROP": ("DROP TABLE IF EXISTS aisles"),
-    #     "CREATE": ("""CREATE TABLE aisles (
-    #         aisle_id INT NOT NULL, aisle VARCHAR(256) NOT NULL,
-    #         PRIMARY KEY (aisle_id))"""),
-    #     "INSERT": ("""INSERT INTO aisles ( aisle_id, aisle )
-    #         VALUES ( %s, %s )""")
-    # },
-    # "departments.csv": {
-    #     "DROP": ("DROP TABLE IF EXISTS departments"),
-    #     "CREATE": (
-    #         """CREATE TABLE departments (
-    #         department_id INT NOT NULL,
-    #         department VARCHAR (256) NOT NULL,
-    #         PRIMARY KEY (department_id))"""
-    #     ),
-    #     "INSERT": ("""INSERT INTO departments ( department_id, department )
-    #         VALUES ( %s, %s )""")
-    # },
-    # "orders.csv": {
-    #     "DROP": ("DROP TABLE IF EXISTS orders"),
-    #     "CREATE": (
-    #         """CREATE TABLE orders (
-    #         order_id INT NOT NULL,
-    #         user_id INT NOT NULL,
-    #         order_number INT NOT NULL,
-    #         order_dow INT NOT NULL,
-    #         order_hour_of_day INT NOT NULL,
-    #         days_since_prior_order INT NOT NULL,
-    #         PRIMARY KEY (order_id))"""
-    #     ),
-    #     "INSERT": ("""INSERT INTO orders (
-    #             order_id, user_id, order_number, order_dow,
-    #             order_hour_of_day, days_since_prior_order
-    #         )
-    #         VALUES ( %s, %s, %s, %s, %s, %s )"""
-    #     )
-    # },
+    "aisles.csv": {
+        "DROP": ("DROP TABLE IF EXISTS aisles"),
+        "CREATE": ("""CREATE TABLE aisles (
+            aisle_id INT NOT NULL, aisle VARCHAR(256) NOT NULL,
+            PRIMARY KEY (aisle_id))"""),
+        "INSERT": ("""INSERT INTO aisles ( aisle_id, aisle )
+            VALUES ( %s, %s )""")
+    },
+    "departments.csv": {
+        "DROP": ("DROP TABLE IF EXISTS departments"),
+        "CREATE": (
+            """CREATE TABLE departments (
+            department_id INT NOT NULL,
+            department VARCHAR (256) NOT NULL,
+            PRIMARY KEY (department_id))"""
+        ),
+        "INSERT": ("""INSERT INTO departments ( department_id, department )
+            VALUES ( %s, %s )""")
+    },
+    "orders.csv": {
+        "DROP": ("DROP TABLE IF EXISTS orders"),
+        "CREATE": (
+            """CREATE TABLE orders (
+            order_id INT NOT NULL,
+            user_id INT NOT NULL,
+            order_number INT NOT NULL,
+            order_dow INT NOT NULL,
+            order_hour_of_day INT NOT NULL,
+            days_since_prior_order INT NOT NULL,
+            PRIMARY KEY (order_id))"""
+        ),
+        "INSERT": ("""INSERT INTO orders (
+                order_id, user_id, order_number, order_dow,
+                order_hour_of_day, days_since_prior_order
+            )
+            VALUES ( %s, %s, %s, %s, %s, %s )"""
+        )
+    },
     "products.csv": {
         "DROP": ("DROP TABLE IF EXISTS products"),
         "CREATE": (
