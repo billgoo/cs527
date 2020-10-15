@@ -1,5 +1,9 @@
 # cs527
 
+## http://18.211.73.183:5000/
+
+----
+
 ## Data Region
 `us-east-1`
 
@@ -104,3 +108,13 @@
 
 2. [Tutorial: Loading data from Amazon S3](https://docs.aws.amazon.com/redshift/latest/dg/tutorial-loading-data.html)
 > 数据在 `./S3toRedShift` 里
+
+## Flask 程序在 `ec 2 instance` 服务器上的部署
+
+[通过Gunicorn部署flask应用（阿里云服务器：Ubuntu 16.04）](https://juejin.im/post/6844903550342922248)
+
+```bash
+# 示例
+gunicorn -w 4 -b 172.31.94.236:5000 ~/cs527/app:app
+```
+- `gunicorn` 添加的是私有 IP，外部访问公有 IP
