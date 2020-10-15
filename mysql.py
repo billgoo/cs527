@@ -13,14 +13,21 @@ class connect_mysql():
     def make_query(self, query):
         start_time = int(round(time() * 1000))
         self.cursor.execute(query)
+        self.db.commit()
         col_info = self.cursor.description
         result = self.cursor.fetchall()
         query_time = str(int(round(time() * 1000)) - start_time) + " ms"
+
         if len(result) > 100:
             result = result[:99]
+        elif len(result) == 0:
+            result = []
+
         col_name = []
-        for i in range(len(col_info)):
-            col_name.append(col_info[i][0])
+        if col_info != None:
+            for i in range(len(col_info)):
+                col_name.append(col_info[i][0])
+
         return col_name, result, query_time
 
     def disconnect(self):
