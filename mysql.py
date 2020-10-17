@@ -3,7 +3,13 @@ from time import time
 import re
 
 def buildQueryFromInput(raw_query):
-    return re.sub('\s+', ' ', raw_query)
+    query = re.sub('\s+', ' ', raw_query)
+    # if db_table == 'instacart':
+    #     query = 'use instacart;' + query
+    # else:
+    #     query = 'use abc_retail; ' + query
+
+    return query
 
 class connect_mysql():
     def __init__(self, host, user, password, db, port):
