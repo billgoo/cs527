@@ -112,7 +112,7 @@
 
 例子：
 ```sql
-copy raws from 's3://abcretailforcs527/load/ABC_Retail' 
+copy abc_retail.raws from 's3://abcretailforcs527/load/ABC_Retail' 
 credentials 'aws_access_key_id=AKIA3VE67DXXXXXXXXXX;aws_secret_access_key=+SBaSp2Weix8GLELHJOLBnlTIRNXcnXXXXXXXXXX' 
 delimiter ','
 DATEFORMAT 'YYYY-MM-DD HH24:MI:SS'
