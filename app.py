@@ -10,9 +10,12 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/mysql', methods = ['POST'])
+# @app.route('/mysql/', methods = ['POST'])
+@app.route('/mysql/instacart', methods = ['POST'])
+@app.route('/mysql/abc_retail', methods = ['POST'])
 def queryMysql():
     url = request.path
+    _, db, db_table = url.split('/')
     raw_query = request.form['query']
     # return render_template('index.html', query=raw_query)
     q = buildQueryFromInput(raw_query)
@@ -20,7 +23,7 @@ def queryMysql():
     connection = connect_mysql(host='cs527project1group5.cnpt9dsbfddc.us-east-1.rds.amazonaws.com',
                                user='admin',
                                password='cs527project1',
-                               db='instacart',
+                               db=db_table,
                                port=3306)
 
     try:
@@ -31,15 +34,18 @@ def queryMysql():
         query_time = 'query error'
     connection.disconnect()
     return render_template('index.html',
-                           url=url,
+                           db=db,
+                           db_table=db_table,
                            col_name=col_name,
                            res=res,
                            query_time=query_time,
                            query=raw_query)
 
-@app.route('/redshift', methods = ['POST'])
+@app.route('/redshift/instacart', methods = ['POST'])
+@app.route('/redshift/abc_retail', methods = ['POST'])
 def queryRedshift():
     url = request.path
+    _, db, db_table = url.split('/')
     raw_query = request.form['query']
     # return render_template('index.html', query=raw_query)
     q = buildQueryFromInput(raw_query)
@@ -57,7 +63,8 @@ def queryRedshift():
         query_time = 'query error'
     connection.disconnect()
     return render_template('index.html',
-                           url=url,
+                           db=db,
+                           db_table=db_table,
                            col_name=col_name,
                            res=res,
                            query_time=query_time,
