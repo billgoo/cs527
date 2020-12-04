@@ -41,3 +41,7 @@
     width: 100%;
     min-height: 200px;
 }
+
+.alexaInputButton {
+    border: 2px solid black;
+}
