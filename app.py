@@ -18,12 +18,14 @@ def alexa():
     query = request.args.get('query')
     global_query['query'] = query
     print(query)
+    print("alexa", global_query)
     return 'Succeed'
 
 
 @app.route('/displayQuery', methods=['GET'])
 def displayQuery():
     query = {'query': global_query['query']}
+    print("displayQuery", global_query)
     return jsonify(query)
 
 
