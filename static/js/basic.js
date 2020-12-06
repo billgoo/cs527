@@ -59,3 +59,23 @@ function querySubmit() {
 
     form.submit();
 }
+
+function displayAlexInput() {
+    var form_content = document.getElementById('inputContent');
+    form_content.innerText = '';
+    var xmlHttp = new XMLHttpRequest();
+    var url = "/displayQuery";
+    console.log('come here');
+
+    xmlHttp.open("GET", url, true);
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            var responseText = xmlHttp.responseText;
+            var obj = JSON.parse(responseText);
+            var query = obj['query'];
+            form_content.innerHTML = query;
+        }
+        // console.log(xmlHttp.responseText);
+    };
+    xmlHttp.send(null);
+}

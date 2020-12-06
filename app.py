@@ -1,14 +1,31 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 from mysql import buildQueryFromInput, connect_mysql
 from redshift import connect_redshift
 
 app = Flask(__name__)
 
+global_query = { 'query': 'please use display alexa input button only when you use alexa to generate sql'}
 
-@app.route('/')
+
+@app.route('/', methods = ['GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/alexa', methods = ['GET'])
+def alexa():
+    query = request.args.get('query')
+    global_query['query'] = query
+    print(query)
+    return 'Succeed'
+
+
+@app.route('/displayQuery', methods=['GET'])
+def displayQuery():
+    query = {'query': global_query['query']}
+    return jsonify(query)
+
 
 # @app.route('/mysql/', methods = ['POST'])
 @app.route('/mysql/instacart', methods = ['POST'])
@@ -41,6 +58,7 @@ def queryMysql():
                            query_time=query_time,
                            query=raw_query)
 
+
 @app.route('/redshift/instacart', methods = ['POST'])
 @app.route('/redshift/abc_retail', methods = ['POST'])
 def queryRedshift():
@@ -70,6 +88,7 @@ def queryRedshift():
                            res=res,
                            query_time=query_time,
                            query=raw_query)
+
 
 if __name__ == '__main__':
     app.run()

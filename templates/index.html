@@ -17,8 +17,11 @@
         <button class="choiceButton {% if db_table=='abc_retail' %}buttonChosen{% endif %}" id="abc_retail" type="button" onclick="handleABCRetailButtonClick()">ABC-Retail</button>
     </div>
     <div>
+         <button class="alexaInputButton" id="alexaInput" type="button" onclick="displayAlexInput()">Display Alexa Input</button>
+    </div>
+    <div>
         <form class="inputForm" action="http://127.0.0.1:5000/" method="post" id="inputForm">
-            <textarea class="inputBox" name="query" placeholder="Input your query here" rows="10">{{ query }}</textarea>
+            <textarea class="inputBox" name="query" id="inputContent" placeholder="Input your query here" rows="10">{{ query }}</textarea>
             <input class="" id="" type="submit" value="Run" onclick="querySubmit()"/>
         </form>
     </div>

@@ -1,0 +1,6 @@
+﻿select {attribute} from {table} {where} {target_attribute} {operator} {target_attribute_value} {group_by} {group_by_attribute}
+select {attribute} from {table} {group_by} {group_by_attribute}
+select {attribute} from {table} {where} {target_attribute} {operator} {target_attribute_value} {limit} {limit_number}
+select {attribute} from {table} {limit} {limit_number}
+select {attribute} from {table} {where} {target_attribute} {operator} {target_attribute_value}
+select {attribute} from {table}
